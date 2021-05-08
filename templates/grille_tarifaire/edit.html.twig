@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit GrilleTarifaire{% endblock %}
+
+{% block body %}
+    <h1>Edit GrilleTarifaire</h1>
+
+    {{ include('grille_tarifaire/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('grille_tarifaire_index') }}">back to list</a>
+
+    {{ include('grille_tarifaire/_delete_form.html.twig') }}
+{% endblock %}

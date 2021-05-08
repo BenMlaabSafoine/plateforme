@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Croissiere{% endblock %}
+
+{% block body %}
+    <h1>Create new Croissiere</h1>
+
+    {{ include('croissiere/_form.html.twig') }}
+
+    <a href="{{ path('croissiere_index') }}">back to list</a>
+{% endblock %}

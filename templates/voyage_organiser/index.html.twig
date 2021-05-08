@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VoyageOrganiser index{% endblock %}
+
+{% block body %}
+    <h1>VoyageOrganiser index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_debut</th>
+                <th>Date_fin</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for voyage_organiser in voyage_organisers %}
+            <tr>
+                <td>{{ voyage_organiser.id }}</td>
+                <td>{{ voyage_organiser.dateDebut ? voyage_organiser.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ voyage_organiser.dateFin ? voyage_organiser.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ voyage_organiser.description }}</td>
+
+                <td>
+                    <a href="{{ path('voyage_organiser_show', {'id': voyage_organiser.id}) }}">show</a>
+                    <a href="{{ path('voyage_organiser_edit', {'id': voyage_organiser.id}) }}">edit</a>
+                </td>
+            </tr>
+             <tr>
+                <td colspan="5">grille tarifaire</td>
+                           
+                
+
+                {% for voy in voyage_organiser.Grilletarifaires %}
+                     <td colspan="5">{{voy.Description}}</td>
+
+       
+        {% endfor %}
+     </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('voyage_organiser_new') }}">Create new</a>
+{% endblock %}

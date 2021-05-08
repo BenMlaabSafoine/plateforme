@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AgenceVoyage{% endblock %}
+
+{% block body %}
+    <h1>AgenceVoyage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ agence_voyage.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ agence_voyage.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ agence_voyage.description }}</td>
+            </tr>
+            <tr>
+                <th>Numtel</th>
+                <td>{{ agence_voyage.numtel }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ agence_voyage.email }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ agence_voyage.adresse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('agence_voyage_index') }}">back to list</a>
+
+    <a href="{{ path('agence_voyage_edit', {'id': agence_voyage.id}) }}">edit</a>
+
+    {{ include('agence_voyage/_delete_form.html.twig') }}
+{% endblock %}

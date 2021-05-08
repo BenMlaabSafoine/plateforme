@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AgenceVoyage{% endblock %}
+
+{% block body %}
+    <h1>AgenceVoyage</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Numtel</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for agence_voyage in agence_voyages %}
+            <tr>
+                <td>{{ agence_voyage.id }}</td>
+                <td>{{ agence_voyage.nom }}</td>
+                <td>{{ agence_voyage.description }}</td>
+                <td>{{ agence_voyage.numtel }}</td>
+                <td>{{ agence_voyage.email }}</td>
+                <td>{{ agence_voyage.adresse }}</td>
+                <td>
+                    <a href="{{ path('agence_voyage_show', {'id': agence_voyage.id}) }}">show</a>
+                    <a href="{{ path('agence_voyage_edit', {'id': agence_voyage.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{{ path('agence_voyage_new') }}">Create new</a>
+{% endblock %}

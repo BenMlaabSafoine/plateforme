@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Croissiere index{% endblock %}
+
+{% block body %}
+    <h1>Croissiere index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_debut</th>
+                <th>Date_fin</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for croissiere in croissieres %}
+            <tr>
+                <td>{{ croissiere.id }}</td>
+                <td>{{ croissiere.dateDebut ? croissiere.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ croissiere.dateFin ? croissiere.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ croissiere.description }}</td>
+                <td>
+                    <a href="{{ path('croissiere_show', {'id': croissiere.id}) }}">show</a>
+                    <a href="{{ path('croissiere_edit', {'id': croissiere.id}) }}">edit</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">grille tarifaire</td>
+                           
+                
+
+                {% for co in croissiere.Grilletarifaires %}
+                     <td colspan="5">{{co.Description}}</td>
+
+       
+        {% endfor %}
+     </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('croissiere_new') }}">Create new</a>
+{% endblock %}

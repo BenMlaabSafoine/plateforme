@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Omra index{% endblock %}
+
+{% block body %}
+    <h1>Omra index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_debut</th>
+                <th>Date_fin</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for omra in omras %}
+            <tr>
+                <td>{{ omra.id }}</td>
+                <td>{{ omra.dateDebut ? omra.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ omra.dateFin ? omra.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ omra.description }}</td>
+                <td>
+                    <a href="{{ path('omra_show', {'id': omra.id}) }}">show</a>
+                    <a href="{{ path('omra_edit', {'id': omra.id}) }}">edit</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">grille tarifaire</td>
+                           
+                
+
+                {% for om in omra.Grilletarifaires %}
+                     <td colspan="5">{{om.Description}}</td>
+
+       
+        {% endfor %}
+     </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('omra_new') }}">Create new</a>
+{% endblock %}

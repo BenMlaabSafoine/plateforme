@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Croissiere{% endblock %}
+
+{% block body %}
+    <h1>Edit Croissiere</h1>
+
+    {{ include('croissiere/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('croissiere_index') }}">back to list</a>
+
+    {{ include('croissiere/_delete_form.html.twig') }}
+{% endblock %}

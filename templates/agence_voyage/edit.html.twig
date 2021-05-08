@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AgenceVoyage{% endblock %}
+
+{% block body %}
+    <h1>Edit AgenceVoyage</h1>
+
+    {{ include('agence_voyage/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('agence_voyage_index') }}">back to list</a>
+
+    {{ include('agence_voyage/_delete_form.html.twig') }}
+{% endblock %}
