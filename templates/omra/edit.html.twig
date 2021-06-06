@@ -3,11 +3,34 @@
 {% block title %}Edit Omra{% endblock %}
 
 {% block body %}
-    <h1>Edit Omra</h1>
+<div class="content">
+   <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
+						<h3 class="card-title" style="color:white">Modifier Omra</h3>
+						<div class="header-elements">
+							 <a class="btn btn-primary" style="width:100px" href="{{ path('omra_index') }}"><i class="icon-file-text2"></i> Liste </a>
+	                	</div>
+					</div>
+     <!-- Basic layout-->
+						<div class="card">
+							
 
-    {{ include('omra/_form.html.twig', {'button_label': 'Update'}) }}
+							<div class="card-body">
+							
+									 {{ include('omra/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('omra_index') }}">back to list</a>
+                                      
 
-    {{ include('omra/_delete_form.html.twig') }}
+                                      
+							</div>
+						</div>
+   
+
+    
+
+   <script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script src="{{ asset('global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+
+	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="{{ asset('global_assets/js/demo_pages/form_layouts.js') }}"></script>
+    </div>
 {% endblock %}

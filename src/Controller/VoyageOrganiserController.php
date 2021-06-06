@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\GrilleTarifaireType;
 
 /**
  * @Route("/voyage/organiser")
@@ -41,17 +42,12 @@ class VoyageOrganiserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($voyageOrganiser);
-            $grilleTarifaire = new GrilleTarifaire();
-        $grilleTarifaire->setDescription($request->request->get("Description"));
-        $grilleTarifaire->setOffre($voyageOrganiser);
-        $entityManager->persist($grilleTarifaire);
-
             $entityManager->flush();
 
             return $this->redirectToRoute('voyage_organiser_index');
         }
 
-        return $this->render('voyage_organiser/new.html.twig', [
+        return $this->render('voyage_organiser/form.html.twig', [
             'voyage_organiser' => $voyageOrganiser,
             'form' => $form->createView(),
         ]);
@@ -74,16 +70,39 @@ class VoyageOrganiserController extends AbstractController
     {
         $form = $this->createForm(VoyageOrganiserType::class, $voyageOrganiser);
         $form->handleRequest($request);
+        
+        $grilletarifaire = new Grilletarifaire();
+        $formgrille = $this->createForm(GrilleTarifaireType::class, $grilletarifaire);
+        $formgrille->handleRequest($request);
+        
+        $grilletarifaires= $voyageOrganiser->getGrilletarifaires(); 
+
+
+        
+        if ($formgrille->isSubmitted() && $formgrille->isValid()) {
+            $grilletarifaire->setOffre($voyageOrganiser);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($grilletarifaire);
+            $entityManager->flush();
+          
+
+            return $this->redirectToRoute('voyage_organiser_edit', ['id' => $voyageOrganiser->getId()] );
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($voyageOrganiser);
+            $entityManager->flush();
+          
 
             return $this->redirectToRoute('voyage_organiser_index');
         }
 
-        return $this->render('voyage_organiser/edit.html.twig', [
+        return $this->render('voyage_organiser/form.html.twig', [
+            'grilletarifaires' => $grilletarifaires,
             'voyage_organiser' => $voyageOrganiser,
             'form' => $form->createView(),
+            'formgrille' => $formgrille->createView(),
         ]);
     }
 

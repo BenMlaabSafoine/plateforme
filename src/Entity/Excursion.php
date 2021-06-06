@@ -12,37 +12,24 @@ class Excursion extends offre
 {
     
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_debut;
+   
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=255)
      */
-    private $date_fin;
+    private $description;
 
 
-    public function getDateDebut(): ?\DateTimeInterface
+   
+
+    public function getDescription(): ?string
     {
-        return $this->date_debut;
+        return $this->description;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): self
+    public function setDescription(string $description): self
     {
-        $this->date_debut = $date_debut;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->date_fin;
-    }
-
-    public function setDateFin(\DateTimeInterface $date_fin): self
-    {
-        $this->date_fin = $date_fin;
+        $this->description = $description;
 
         return $this;
     }

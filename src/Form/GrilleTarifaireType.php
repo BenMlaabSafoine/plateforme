@@ -8,24 +8,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use App\Entity\Hotel;
 
 class GrilleTarifaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('date_debut')
+            ->add('date_fin')
             ->add('description')
-            ->add('offre', EntityType::class, [
-                // looks for choices from this entity
-                'class' => Offre::class,
+            ->add('prix')
+            ->add(
+                'hotelgrille',
+                EntityType::class,
+                [
+                    'class' => Hotel::class,
+                    'choice_label' => 'nom',
+                    'required' => true,
+                    'multiple' => true,
+                ]
+             )
             
-                // uses the User.username property as the visible option string
-                'choice_label' => 'id',
-            
-                // used to render a select box, check boxes or radios
-                // 'multiple' => true,
-                // 'expanded' => true,
-            ])
         ;
     }
 

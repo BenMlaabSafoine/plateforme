@@ -38,10 +38,7 @@ class CroissiereController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($croissiere);
-            $grilleTarifaire = new GrilleTarifaire();
-            $grilleTarifaire->setDescription($request->request->get("Description"));
-            $grilleTarifaire->setOffre($croissiere);
-            $entityManager->persist($grilleTarifaire);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('croissiere_index');

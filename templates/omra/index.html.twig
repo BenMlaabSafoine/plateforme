@@ -1,43 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Omra index{% endblock %}
+{% block js %}
+	<!-- Theme JS files -->
+	<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+
+	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="{{ asset('global_assets/js/demo_pages/datatables_basic.js') }}"></script>
+{% endblock %}
 
 {% block body %}
-    <h1>Omra index</h1>
+<div class="content">
+   <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
+						<h3 class="card-title" style="color:white">Omra</h3>
+						<div class="header-elements">
+							<a class="btn btn-primary" href="{{ path('omra_new') }}" style="width:100px" align="right" ><i class="icon-add"></i> Ajouter</a>
+	                	</div>
+					</div>
+   
 
-    <table class="table">
+    <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Date_debut</th>
-                <th>Date_fin</th>
+                
                 <th>Description</th>
-                <th>actions</th>
+                <th colspan="2">actions</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for omra in omras %}
             <tr>
                 <td>{{ omra.id }}</td>
-                <td>{{ omra.dateDebut ? omra.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ omra.dateFin ? omra.dateFin|date('Y-m-d') : '' }}</td>
+                
                 <td>{{ omra.description }}</td>
                 <td>
-                    <a href="{{ path('omra_show', {'id': omra.id}) }}">show</a>
-                    <a href="{{ path('omra_edit', {'id': omra.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('omra_edit', {'id': omra.id}) }}"style="width:100px"><i class="icon-pencil"></i>edit</a>
+                    </td>
+                    <td>
+                    {{ include('omra/_delete_form.html.twig') }}
                 </td>
+                <td></td>
+                <td></td>
             </tr>
-            <tr>
-                <td colspan="5">grille tarifaire</td>
-                           
-                
-
-                {% for om in omra.Grilletarifaires %}
-                     <td colspan="5">{{om.Description}}</td>
-
-       
-        {% endfor %}
-     </tr>
+            
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
@@ -46,5 +55,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('omra_new') }}">Create new</a>
+    </div>
 {% endblock %}

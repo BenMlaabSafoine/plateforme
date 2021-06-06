@@ -5,9 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
-	"{{ asset('images/logo.png') }}"
+	
 	<!-- Global stylesheets -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="{{ asset('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('global_assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/css/bootstrap_limitless.min.css') }}" rel="stylesheet" type="text/css">
@@ -23,6 +23,7 @@
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
+	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/visualization/d3/d3.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/visualization/d3/d3_tooltip.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
@@ -30,8 +31,11 @@
 	<script src="{{ asset('global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 
-	<script src="{{ asset('assets/js/app.js') }}"></script>
-	<script src="{{ asset('global_assets/js/demo_pages/dashboard.js') }}"></script>
+	{% block js %}
+	
+	 {% endblock %}
+	 {% block hotel %}
+	 {% endblock %}
 	<!-- /theme JS files -->
 
 </head>
@@ -371,18 +375,9 @@
 
 						<!-- Main -->
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
-						<li class="nav-item">
-							<a href="index.html" class="nav-link active">
-								<i class="icon-home4"></i>
-								<span>
-									Dashboard
-									<span class="d-block font-weight-normal opacity-50">No active orders</span>
-								</span>
-							</a>
-						</li>
-					
+						
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Agence</span></a>
+							<a  class="nav-link"><i class="icon-color-sampler"></i> <span>Agence</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Themes">
 								<li class="nav-item"><a href="{{path('agence_voyage_index')}}" class="nav-link active">Lister</a></li>
@@ -413,6 +408,30 @@
 										
 									</ul>
 								</li>
+								<li class="nav-item nav-item-submenu">
+									<a href="#" class="nav-link"><i class="icon-file-stats"></i> <span>Offre</span></a>
+                                    <ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('offre_index')}}" class="nav-link">Lister</a></li>
+									</ul>	
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('omra_index')}}" class="nav-link">Omra</a></li>
+									</ul>	
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('croissiere_index')}}" class="nav-link">Croissiere</a></li>	
+									</ul>
+										<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('voyage_organiser_index')}}" class="nav-link">Voyage Organiser</a></li>	
+									</ul>
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('randonnee_index')}}" class="nav-link">Randonnee</a></li>
+									</ul>	
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('excursion_index')}}" class="nav-link">Excursion</a></li>
+									</ul>	
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('grille_tarifaire_index')}}" class="nav-link">Grille tarifaire</a></li>
+									</ul>	
+								</li>
 							
 							</ul>
 						</li>
@@ -439,39 +458,16 @@
 		<div class="content-wrapper">
 
 			<!-- Page header -->
-			<div class="page-header">
-				<div class="page-header-content header-elements-md-inline">
-					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Dashboard</h4>
-						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-					</div>
-
-					<div class="header-elements d-none text-center text-md-left mb-3 mb-md-0">
-						<div class="btn-group">
-							<button type="button" class="btn bg-indigo-400"><i class="icon-stack2 mr-2"></i> New report</button>
-							<button type="button" class="btn bg-indigo-400 dropdown-toggle" data-toggle="dropdown"></button>
-							<div class="dropdown-menu dropdown-menu-right">
-								<div class="dropdown-header">Actions</div>
-								<a href="#" class="dropdown-item"><i class="icon-file-eye"></i> View reports</a>
-								<a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit reports</a>
-								<a href="#" class="dropdown-item"><i class="icon-file-stats"></i> Statistics</a>
-								<div class="dropdown-header">Export</div>
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to PDF</a>
-								<a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to CSV</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			<!-- /page header -->
-
-<div class="row">
+        
+                <div class="row">
 					<div class="col-xl-12">
 
 						<!-- Traffic sources -->
 						<div class="card">
 		
-										   {% block body %}
+	    {% block body %}
         
         {% endblock %}
 											
@@ -479,39 +475,18 @@
 									</div>
      							</div>
 							</div>
-              							</div>
+              			
 							</div>
 							</div>
 
 
 
-			
+			     
 				<!-- /dashboard content -->
 			<!-- /content area -->
 
 
-			<!-- Footer -->
-			<div class="navbar navbar-expand-lg navbar-light">
-				<div class="text-center d-lg-none w-100">
-					<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
-						<i class="icon-unfold mr-2"></i>
-						Footer
-					</button>
-				</div>
-
-				<div class="navbar-collapse collapse" id="navbar-footer">
-					<span class="navbar-text">
-						&copy; 2015 - 2018. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-					</span>
-
-					<ul class="navbar-nav ml-lg-auto">
-						<li class="nav-item"><a href="https://kopyov.ticksy.com/" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
-						<li class="nav-item"><a href="http://demo.interface.club/limitless/docs/" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
-						<li class="nav-item"><a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="navbar-nav-link font-weight-semibold"><span class="text-pink-400"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /footer -->
+			
 
 		</div>
 		<!-- /main content -->

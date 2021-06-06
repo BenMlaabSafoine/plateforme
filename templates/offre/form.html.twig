@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Offre{% endblock %}
+
+{% block body %}
+    
+    <!-- Basic layout-->
+<div class="content">
+ <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
+						<h3 class="card-title" style="color:white">Création Offre</h3>
+						<div class="header-elements">
+							 <a class="btn btn-primary" style="width:100px" href="{{ path('offre_index') }}"><i class="icon-file-text2"></i> Liste </a>
+	                	</div>
+					</div>
+    <!-- Basic layout-->
+	<div class="row">
+	<div class="col-md-6">
+
+						<div class="card">
+							
+							<div class="card-body">
+							
+									{{ include('offre/_form.html.twig') }}
+							</div>
+						</div>
+	</div>
+	<div class="col_md-6">
+                       
+
+	</div>
+
+</div>  				
+
+    
+{% endblock %}

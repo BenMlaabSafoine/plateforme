@@ -44,10 +44,16 @@ class Hotel
      */
     private $offres;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=GrilleTarifaire::class, mappedBy="hotelgrille")
+     */
+    private $grilleTarifaires;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
         $this->offres = new ArrayCollection();
+        $this->grilleTarifaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,33 @@ class Hotel
     {
         if ($this->offres->removeElement($offre)) {
             $offre->removeHotel($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GrilleTarifaire[]
+     */
+    public function getGrilleTarifaires(): Collection
+    {
+        return $this->grilleTarifaires;
+    }
+
+    public function addGrilleTarifaire(GrilleTarifaire $grilleTarifaire): self
+    {
+        if (!$this->grilleTarifaires->contains($grilleTarifaire)) {
+            $this->grilleTarifaires[] = $grilleTarifaire;
+            $grilleTarifaire->addHotelgrille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGrilleTarifaire(GrilleTarifaire $grilleTarifaire): self
+    {
+        if ($this->grilleTarifaires->removeElement($grilleTarifaire)) {
+            $grilleTarifaire->removeHotelgrille($this);
         }
 
         return $this;

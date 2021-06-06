@@ -38,10 +38,8 @@ class OmraController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($omra);
-            $grilleTarifaire = new GrilleTarifaire();
-        $grilleTarifaire->setDescription($request->request->get("Description"));
-        $grilleTarifaire->setOffre($omra);
-        $entityManager->persist($grilleTarifaire);
+           
+        
             $entityManager->flush();
 
             return $this->redirectToRoute('omra_index');

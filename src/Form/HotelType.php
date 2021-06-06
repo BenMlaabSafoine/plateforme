@@ -14,7 +14,7 @@ class HotelType extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
-            ->add('photo')
+            ->add('photo', null , array("attr"=> array(), 'required' => false))
             
         ;
     }

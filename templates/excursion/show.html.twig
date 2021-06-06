@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Excursion{% endblock %}
+
+{% block body %}
+    <h1>Excursion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ excursion.id }}</td>
+            </tr>
+                <th>Description</th>
+                <td>{{ excursion.description }}</td>
+             
+        </tbody>
+    </table>
+
+    <a href="{{ path('excursion_index') }}">back to list</a>
+
+    <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
+
+    {{ include('excursion/_delete_form.html.twig') }}
+{% endblock %}

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
+
 /**
  * @ORM\Entity(repositoryClass=GrilleTarifaireRepository::class)
  */
@@ -34,9 +36,30 @@ class GrilleTarifaire
      */
     private $reservations;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_debut;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_fin;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prix;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Hotel::class, inversedBy="grilleTarifaires")
+     */
+    private $hotelgrille;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->hotelgrille = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,6 +117,66 @@ class GrilleTarifaire
                 $reservation->setGrilleTarifaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->date_debut;
+    }
+
+    public function setDateDebut(\DateTimeInterface $date_debut): self
+    {
+        $this->date_debut = $date_debut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->date_fin;
+    }
+
+    public function setDateFin(\DateTimeInterface $date_fin): self
+    {
+        $this->date_fin = $date_fin;
+
+        return $this;
+    }
+
+    public function getPrix(): ?string
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(string $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Hotel[]
+     */
+    public function getHotelgrille(): Collection
+    {
+        return $this->hotelgrille;
+    }
+
+    public function addHotelgrille(Hotel $hotelgrille): self
+    {
+        if (!$this->hotelgrille->contains($hotelgrille)) {
+            $this->hotelgrille[] = $hotelgrille;
+        }
+
+        return $this;
+    }
+
+    public function removeHotelgrille(Hotel $hotelgrille): self
+    {
+        $this->hotelgrille->removeElement($hotelgrille);
 
         return $this;
     }

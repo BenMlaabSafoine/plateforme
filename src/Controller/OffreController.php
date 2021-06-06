@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Offre;
 use App\Entity\Pays;
-
+use App\Entity\AgenceVoyage;
 use App\Form\OffreType;
 use App\Repository\OffreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @Route("/offre")
@@ -35,18 +36,21 @@ class OffreController extends AbstractController
         $offre = new Offre();
         $form = $this->createForm(OffreType::class, $offre);
         $form->handleRequest($request);
+        
+      
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
-            $offre->setAgencevoyage($user->getAgenceVoyage());
+            $offre->setAgencevoyage($user->getAgenceVoyage()); 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($offre);
             $entityManager->flush();
 
             return $this->redirectToRoute('offre_index');
         }
+       
 
-        return $this->render('offre/new.html.twig', [
+        return $this->render('offre/form.html.twig', [
             'offre' => $offre,
             'form' => $form->createView(),
         ]);
@@ -76,7 +80,7 @@ class OffreController extends AbstractController
             return $this->redirectToRoute('offre_index');
         }
 
-        return $this->render('offre/edit.html.twig', [
+        return $this->render('offre/form.html.twig', [
             'offre' => $offre,
             'form' => $form->createView(),
         ]);

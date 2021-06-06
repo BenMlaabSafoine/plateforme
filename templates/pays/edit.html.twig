@@ -3,11 +3,36 @@
 {% block title %}Edit Pays{% endblock %}
 
 {% block body %}
-    <h1>Edit Pays</h1>
+<!-- Basic layout-->
+					<div class="content">
+   <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
+						<h3 class="card-title" style="color:white">Modifier Pays</h3>
+						<div class="header-elements">
+							 <a class="btn btn-primary" style="width:100px" href="{{ path('pays_index') }}"><i class="icon-file-text2"></i> Liste </a>
+	                	</div>
+					</div>
+     <!-- Basic layout-->
+						<div class="card">
+							
 
-    {{ include('pays/_form.html.twig', {'button_label': 'Update'}) }}
+							<div class="card-body">
+							
+									 {{ include('pays/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('pays_index') }}">back to list</a>
+                                      
 
-    {{ include('pays/_delete_form.html.twig') }}
+                                      
+							</div>
+						</div>
+						<!-- /basic layout -->
+                        <!-- Theme JS files -->
+	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script src="{{ asset('global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+
+	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="{{ asset('global_assets/js/demo_pages/form_layouts.js') }}"></script>
+	<!-- /theme JS files -->
+   </div>
+
+   
 {% endblock %}

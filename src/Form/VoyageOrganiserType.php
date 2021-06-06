@@ -18,12 +18,7 @@ class VoyageOrganiserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date_debut',DateType::class, [
-                'widget' => 'choice',
-            ])
-            ->add('date_fin',DateType::class, [
-                'widget' => 'choice',
-            ])
+           
             ->add('description')
             ->add('agencevoyage', EntityType::class, [
                 // looks for choices from this entity

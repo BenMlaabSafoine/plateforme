@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Randonnee{% endblock %}
+
+{% block body %}
+    <h1>Randonnee</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ randonnee.id }}</td>
+            </tr>
+             <tr>
+                <th>Description</th>
+                <td>{{ randonnee.description }}</td>
+            </tr>
+           
+        </tbody>
+    </table>
+
+    <a href="{{ path('randonnee_index') }}">back to list</a>
+
+    <a href="{{ path('randonnee_edit', {'id': randonnee.id}) }}">edit</a>
+
+    {{ include('randonnee/_delete_form.html.twig') }}
+{% endblock %}
