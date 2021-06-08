@@ -37,6 +37,11 @@ class Photo
      */
     private $hotel;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $photo = [];
+
 
     public function getId(): ?int
     {
@@ -87,6 +92,18 @@ class Photo
     public function setHotel(?Hotel $hotel): self
     {
         $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?array
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?array $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

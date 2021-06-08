@@ -1,4 +1,6 @@
-{{ form_start(form) }}
+    <form method="POST" action="{{ path('hotel_new') }}" enctype="multipart/form-data">
+
     {{ form_widget(form) }}
+                <input type="file" name="upload[]" multiple>
     <button class="btn btn-primary" style="width:100px" > <i class="icon-floppy-disk"></i> {{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    </form>

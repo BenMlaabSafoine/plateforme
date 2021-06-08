@@ -49,6 +49,7 @@
                 <th>Description</th>
                 <th>Prix</td>
                 <th>Hotel</td>
+                <th colspan="2">Photos Hotel</td>
                 <th >action</th>
             </tr>
         </thead>
@@ -63,6 +64,11 @@
                 {% for g in grilletarifaire.hotelgrille %}
                 <td>{{g.nom}}</td>
                  {% endfor %}
+                 {% for a in grilletarifaire.hotelgrille %}
+                   {% for b in a.photo %}
+          <td><img width="50px" height="50px" src="/{{b}}"></td>
+                       {% endfor %}
+                       {% endfor %}
             
             
                 
@@ -70,7 +76,7 @@
 
                 <td>
                         
-                  <a style="width:100px;background-color:Red" data-toggle="modal" href="#infos" class="btn btn-danger"><i class="icon-cross2"></i> Supprimer</a>
+                  <a style="width:100px;background-color:Red" data-toggle="modal" href="#supprimer" class="btn btn-danger"><i class="icon-cross2"></i> Supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -88,28 +94,45 @@
 		 <div class="card-body">
             <div class="form-group row">
                 <label class="col-lg-2 col-form-label font-weight-semibold">Date Début</label>
-                            {{ form_widget(formgrille.date_debut,{'attr': {'required' :'required','class': 'form-control col-lg-4','placeholder':'datedebut'}}) }}
-			</div>
-             <div class="form-group row">
+                            {{ form_widget(formgrille.date_debut,{'attr': {'required' :'required','class': 'form-control col-lg-4','placeholder':'datedebut'}}) }}</div>
+			
+                        <div class="form-group row">
                             <label class="col-lg-2 col-form-label font-weight-semibold">Date Fin</label>
 							  {{ form_widget(formgrille.date_fin, {'attr': {'required' :'required','class': 'form-control col-lg-4','placeholder':'datefin'}}) }}</div>
-            </div>
-			<div class="form-group row">
+            
+			            <div class="form-group row">
                             <label class="col-lg-2 col-form-label font-weight-semibold">Description</label>
 							  {{ form_widget(formgrille.description, {'attr': {'required' :'required','class': 'form-control col-lg-4','placeholder':'description'}}) }}</div>
-            <div class="form-group row">
+                        <div class="form-group row">
                             <label class="col-lg-2 col-form-label font-weight-semibold">Prix</label>
 							  {{ form_widget(formgrille.prix, {'attr': {'required' :'required','class': 'form-control col-lg-4','placeholder':'prix'}}) }}</div>
-            <div class="form-group row">
+                        <div class="form-group row">
                              <label class="col-lg-2 col-form-label font-weight-semibold">Hotel</label>
 							  {{ form_widget(formgrille.hotelgrille, {'attr': {'required' :'required','class': 'form-control col-lg-4','placeholder':'hotelgrille'}}) }}</div>  
            
-				<button type="submit" class="btn bg-success">Valider <i class="icon-checkmark ml-2"></i></button>
+				        <button type="submit" class="btn bg-success">Valider <i class="icon-checkmark ml-2"></i></button>
 		    </div>
                           
 		</div>
-	</div>  
-                             {{ form_end(formgrille) }}
+	</div>
+    </div>  
+        {{ form_end(formgrille) }}
+        <div class="modal fade" id="supprimer" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>Suppression</h4>
+                        <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
+                            <i class="fa fa-ban" aria-hidden="true"></i> Annuler
+                        </button>
+                        <a href="#" class="btn w-sm btn-danger remove_item">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 	 </div>
 	 {% endif %}
  </div>

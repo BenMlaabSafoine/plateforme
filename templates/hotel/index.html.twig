@@ -37,13 +37,16 @@
         </thead>
         <tbody>
         {% for hotel in hotels %}
+        
             <tr>
                 <td>{{ hotel.id }}</td>
                 <td>{{ hotel.nom }}</td>
                 <td>{{ hotel.description }}</td>
-                <td>{{ hotel.photo }}</td>
-               
-               
+                                <td>
+               {% for a in hotel.photo %}
+          <img width="100px" height="100px" src="/{{a}}">
+                       {% endfor %}
+</td>
                
                 <td>
                     <a class="btn btn-primary" href="{{ path('hotel_edit', {'id': hotel.id}) }}" style="width:100px"><i class="icon-pencil"></i> edit</a>

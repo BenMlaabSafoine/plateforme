@@ -6,6 +6,8 @@ use App\Entity\Hotel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class HotelType extends AbstractType
 {
@@ -14,8 +16,7 @@ class HotelType extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
-            ->add('photo', null , array("attr"=> array(), 'required' => false))
-            
+        ;     
         ;
     }
 

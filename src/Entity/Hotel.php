@@ -29,10 +29,7 @@ class Hotel
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $photo;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="hotel")
@@ -48,6 +45,14 @@ class Hotel
      * @ORM\ManyToMany(targetEntity=GrilleTarifaire::class, mappedBy="hotelgrille")
      */
     private $grilleTarifaires;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $photo = [];
+
+  
+
 
     public function __construct()
     {
@@ -85,17 +90,7 @@ class Hotel
         return $this;
     }
 
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
 
-    public function setPhoto(string $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Photo[]
@@ -180,4 +175,18 @@ class Hotel
 
         return $this;
     }
+
+    public function getPhoto(): ?array
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(array $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+   
 }
