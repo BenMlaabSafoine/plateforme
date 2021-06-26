@@ -25,7 +25,6 @@
 							<div class="card-body">
 							{{ form_start(form) }}
                             {{ form_widget(form) }}
- 
                              <button class="btn btn-primary" style="width:100px" ><i class="icon-floppy-disk"></i> {{ button_label|default('Save') }}</button>
                              {{ form_end(form) }}
 							</div>
@@ -67,16 +66,27 @@
                  {% for a in grilletarifaire.hotelgrille %}
                    {% for b in a.photo %}
           <td><img width="50px" height="50px" src="/{{b}}"></td>
-                       {% endfor %}
-                       {% endfor %}
-            
-            
-                
-
-
+                    {% endfor %}
+                {% endfor %}
                 <td>
-                        
-                  <a style="width:100px;background-color:Red" data-toggle="modal" href="#supprimer" class="btn btn-danger"><i class="icon-cross2"></i> Supprimer</a>
+                     
+        <div class="modal fade" id="supprimer_grilletarifaire_{{ grilletarifaire.id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>Suppression</h4>
+                        <p>Êtes-vous sûr de vouloir supprimer  ? {{ grilletarifaire.datedebut|date('Y/m/d') }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
+                            <i class="fa fa-ban" aria-hidden="true"></i> Annuler
+                        </button>
+                        <a href= "{{ path('grille_tarifaire_del', {'id': grilletarifaire.id}) }}" class="btn w-sm btn-danger remove_item">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>   
+                  <a style="width:100px;background-color:Red" data-toggle="modal" href="#supprimer_grilletarifaire_{{ grilletarifaire.id }}" class="btn btn-danger"><i class="icon-cross2"></i> Supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -117,22 +127,7 @@
 	</div>
     </div>  
         {{ form_end(formgrille) }}
-        <div class="modal fade" id="supprimer" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h4>Suppression</h4>
-                        <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
-                            <i class="fa fa-ban" aria-hidden="true"></i> Annuler
-                        </button>
-                        <a href="#" class="btn w-sm btn-danger remove_item">Supprimer</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 	 </div>
 	 {% endif %}
  </div>

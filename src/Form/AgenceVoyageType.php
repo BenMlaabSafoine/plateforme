@@ -21,17 +21,17 @@ class AgenceVoyageType extends AbstractType
             ->add('numtel')
             ->add('email')
             ->add('adresse')
-            ->add('Agents', EntityType::class, [
+            //->add('Agents', EntityType::class, [
                 // looks for choices from this entity
-                'class' => User::class,
+              //  'class' => User::class,
             
                 // uses the User.username property as the visible option string
-                'choice_label' => 'username',
+              //  'choice_label' => 'username',
             
                 // used to render a select box, check boxes or radios
-                 'multiple' => true,
+             //    'multiple' => true,
                 // 'expanded' => true,
-            ]);
+           // ]);
             
         ;
     }

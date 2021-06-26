@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin index{% endblock %}
+{% block js %}
+	<!-- Theme JS files -->
+	<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+
+	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="{{ asset('global_assets/js/demo_pages/datatables_basic.js') }}"></script>
+{% endblock %}
+{% block body %}
+    
+<div class="content">
+   <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
+						<h3 class="card-title" style="color:white">Admin Index</h3>
+                           </div>
+    <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Numtel</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for admin in admins %}
+            <tr>
+                <td>{{ admin.id }}</td>
+                <td>{{ admin.nom }}</td>
+                <td>{{ admin.prenom }}</td>
+                <td>{{ admin.email }}</td>
+                <td>{{ admin.numtel }}</td>
+                <td>
+                    
+                     <a class="btn btn-primary" href="{{ path('admin_edit', {'id': admin.id}) }}"style="width:100px"><i class="icon-pencil"></i>edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ 
+
+    
+    
+{% endblock %}

@@ -50,7 +50,7 @@ class AgenceVoyage
     private $offres;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="agenceVoyage")
+     * @ORM\OneToMany(targetEntity=Agent::class, mappedBy="agenceVoyage")
      */
     private $Agents;
 

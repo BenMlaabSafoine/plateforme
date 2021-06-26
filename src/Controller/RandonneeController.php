@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Randonnee;
 use App\Form\RandonneeType;
+use App\Form\RandonneeAgentType;
 use App\Repository\RandonneeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\GrilleTarifaire;
+use App\Form\GrilleTarifaireType;
 
 /**
  * @Route("/randonnee")
@@ -36,13 +39,16 @@ class RandonneeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $user=$this->getUser();
+            $agence=$user->getAgencevoyage();
+            $randonnee->setAgencevoyage($agence);
             $entityManager->persist($randonnee);
             $entityManager->flush();
 
             return $this->redirectToRoute('randonnee_index');
         }
 
-        return $this->render('randonnee/new.html.twig', [
+        return $this->render('randonnee/form.html.twig', [
             'randonnee' => $randonnee,
             'form' => $form->createView(),
         ]);
@@ -63,18 +69,33 @@ class RandonneeController extends AbstractController
      */
     public function edit(Request $request, Randonnee $randonnee): Response
     {
-        $form = $this->createForm(RandonneeType::class, $randonnee);
+        $form = $this->createForm(RandonneeAgentType::class, $randonnee);
         $form->handleRequest($request);
+        $grilletarifaire = new Grilletarifaire();
+        $formgrille = $this->createForm(GrilleTarifaireType::class, $grilletarifaire);
+        $formgrille->handleRequest($request);
+        
+        $grilletarifaires= $randonnee->getGrilletarifaires(); 
+        if ($formgrille->isSubmitted() && $formgrille->isValid()) {
+            $grilletarifaire->setOffre($randonnee);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($grilletarifaire);
+            $entityManager->flush();
+          
 
+            return $this->redirectToRoute('randonnee_edit', ['id' => $randonnee->getId()] );
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('randonnee_index');
         }
 
-        return $this->render('randonnee/edit.html.twig', [
+        return $this->render('randonnee/form.html.twig', [
+            'grilletarifaires' => $grilletarifaires,
             'randonnee' => $randonnee,
             'form' => $form->createView(),
+            'formgrille' => $formgrille->createView(),
         ]);
     }
 

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/grille/tarifaire")
+ * @Route("/grilletarifaire")
  */
 class GrilleTarifaireController extends AbstractController
 {
@@ -92,16 +92,27 @@ class GrilleTarifaireController extends AbstractController
         return $this->redirectToRoute('grille_tarifaire_index');
     }
      /**
-     * @Route("del/{id}", name="grille_tarifaire_del", methods={"DELETE"})
+     * @Route("/del/{id}", name="grille_tarifaire_del")
      */
     public function del(Request $request, GrilleTarifaire $grilleTarifaire): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$grilleTarifaire->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $offre=$grilleTarifaire->getOffre();
             $entityManager->remove($grilleTarifaire);
             $entityManager->flush();
-        }
+/*
+             switch ($offre->getType()) {
+                 case 'value':
+                     $path=
+                     break;
+                 
+                 default:
+                     # code...
+                     break;
+             }
 
+        return $this->redirectToRoute($path);*/
+        
         return $this->redirectToRoute('offre_index');
     }
 }

@@ -18,8 +18,6 @@ class VoyageOrganiser extends Offre
     private $description;
 
 
-
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -32,4 +30,5 @@ class VoyageOrganiser extends Offre
         return $this;
     }
 
+    
 }

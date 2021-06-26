@@ -4,8 +4,7 @@ namespace App\Controller;
 
 use App\Entity\VoyageOrganiser;
 use App\Entity\GrilleTarifaire;
-
-
+use App\Entity\AgenceVoyage;
 use App\Form\VoyageOrganiserType;
 use App\Repository\VoyageOrganiserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\GrilleTarifaireType;
+use App\Form\VoyageOrganiserAgentType;
 
 /**
  * @Route("/voyage/organiser")
@@ -36,11 +36,19 @@ class VoyageOrganiserController extends AbstractController
     {
         
         $voyageOrganiser = new VoyageOrganiser();
-        $form = $this->createForm(VoyageOrganiserType::class, $voyageOrganiser);
+      //  if() // is admin
+       // $form = $this->createForm(VoyageOrganiserType::class, $voyageOrganiser);
+       // else
+        $form=$this->createForm(VoyageOrganiserAgentType::class, $voyageOrganiser);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $user=$this->getUser();
+            $agence=$user->getAgencevoyage();
+            var_dump('user'.$user->getId());
+            var_dump('agence'.$agence->getId());
+            $voyageOrganiser->setAgencevoyage($agence);
             $entityManager->persist($voyageOrganiser);
             $entityManager->flush();
 
@@ -52,6 +60,10 @@ class VoyageOrganiserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
+
+
+    
 
     /**
      * @Route("/{id}", name="voyage_organiser_show", methods={"GET"})
@@ -68,7 +80,7 @@ class VoyageOrganiserController extends AbstractController
      */
     public function edit(Request $request, VoyageOrganiser $voyageOrganiser): Response
     {
-        $form = $this->createForm(VoyageOrganiserType::class, $voyageOrganiser);
+        $form = $this->createForm(VoyageOrganiserAgentType::class, $voyageOrganiser);
         $form->handleRequest($request);
         
         $grilletarifaire = new Grilletarifaire();

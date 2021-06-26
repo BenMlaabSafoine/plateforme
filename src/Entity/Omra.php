@@ -10,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Omra extends Offre
 {
-    
-
     /**
      * @ORM\Column(type="string", length=255)
      */

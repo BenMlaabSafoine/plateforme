@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Excursion;
 use App\Form\ExcursionType;
+use App\Form\ExcursionAgentType;
 use App\Repository\ExcursionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\GrilleTarifaireType;
+use App\Entity\GrilleTarifaire;
 
 /**
  * @Route("/excursion")
@@ -31,18 +34,21 @@ class ExcursionController extends AbstractController
     public function new(Request $request): Response
     {
         $excursion = new Excursion();
-        $form = $this->createForm(ExcursionType::class, $excursion);
+        $form = $this->createForm(ExcursionAgentType::class, $excursion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $user=$this->getUser();
+            $agence=$user->getAgencevoyage();
+            $excursion->setAgencevoyage($agence);
             $entityManager->persist($excursion);
             $entityManager->flush();
 
             return $this->redirectToRoute('excursion_index');
         }
 
-        return $this->render('excursion/new.html.twig', [
+        return $this->render('excursion/form.html.twig', [
             'excursion' => $excursion,
             'form' => $form->createView(),
         ]);
@@ -63,18 +69,33 @@ class ExcursionController extends AbstractController
      */
     public function edit(Request $request, Excursion $excursion): Response
     {
-        $form = $this->createForm(ExcursionType::class, $excursion);
+        $form = $this->createForm(ExcursionAgentType::class, $excursion);
         $form->handleRequest($request);
+        $grilletarifaire = new Grilletarifaire();
+        $formgrille = $this->createForm(GrilleTarifaireType::class, $grilletarifaire);
+        $formgrille->handleRequest($request);
+        
+        $grilletarifaires= $excursion->getGrilletarifaires(); 
+        if ($formgrille->isSubmitted() && $formgrille->isValid()) {
+            $grilletarifaire->setOffre($excursion);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($grilletarifaire);
+            $entityManager->flush();
+          
 
+            return $this->redirectToRoute('excursion_edit', ['id' => $excursion->getId()] );
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('excursion_index');
         }
 
-        return $this->render('excursion/edit.html.twig', [
+        return $this->render('excursion/form.html.twig', [
+            'grilletarifaires' => $grilletarifaires,
             'excursion' => $excursion,
             'form' => $form->createView(),
+            'formgrille' => $formgrille->createView(),
         ]);
     }
 
