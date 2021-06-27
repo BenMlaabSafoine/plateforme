@@ -23,8 +23,14 @@ class ExcursionController extends AbstractController
      */
     public function index(ExcursionRepository $excursionRepository): Response
     {
+        $user=$this->getUser();
+        $agencevoyage=$user->getAgencevoyage();
+        if(! is_null($agencevoyage))
+        $excursions = $excursionRepository->findByAgencevoyage($agencevoyage) ;
+        else 
+        $excursions = $excursionRepository->findAll() ;
         return $this->render('excursion/index.html.twig', [
-            'excursions' => $excursionRepository->findAll(),
+            'excursions' => $excursions,
         ]);
     }
 

@@ -24,23 +24,29 @@
         <thead>
             <tr>
                 <th>Id</th>
-                
+                <th>Titre</th>
                 <th>Description</th>
-                <th colspan="2">actions</th>
-                <th></th>
-                <th></th>
+                <th>Comprend</th>
+                <th>Ne comprend pas</th>
+                <th>Prix à partir</th>
+                <th>actions</th>
+              
             </tr>
         </thead>
         <tbody>
         {% for croissiere in croissieres %}
             <tr>
                 <td>{{ croissiere.id }}</td>
-               
+               <td>{{ croissiere.titre }}</td>
                 <td>{{ croissiere.description }}</td>
+                <td>{{ croissiere.comprend }}</td>
+                <td>{{ croissiere.necomprendpas }}</td>
+                <td>{{ croissiere.prixapartir }}</td>
+                
+
                 <td>
-                    <a class="btn btn-primary" style="width:100px" href="{{ path('croissiere_edit', {'id': croissiere.id}) }}"><i class="icon-pencil"></i> edit</a>
-                     </td>
-                     <td>
+                    <a class="btn btn-primary" style="width:100px" href="{{ path('croissiere_edit', {'id': croissiere.id}) }}"><i class="icon-pencil"></i> Modifier</a>
+                    
                      {{ include('croissiere/_delete_form.html.twig') }}
                 </td>
                 <td></td>

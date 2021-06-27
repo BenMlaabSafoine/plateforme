@@ -44,10 +44,16 @@ class Pays
      */
     private $offres;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Hotel::class, mappedBy="pays",cascade={"persist", "remove"})
+     */
+    private $hotel;
+
     public function __construct()
     {
         $this->sites = new ArrayCollection();
         $this->offres = new ArrayCollection();
+        $this->hotel = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,36 @@ class Pays
     {
         if ($this->offres->removeElement($offre)) {
             $offre->removePay($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Hotel[]
+     */
+    public function getHotel(): Collection
+    {
+        return $this->hotel;
+    }
+
+    public function addHotel(Hotel $hotel): self
+    {
+        if (!$this->hotel->contains($hotel)) {
+            $this->hotel[] = $hotel;
+            $hotel->setPays($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHotel(Hotel $hotel): self
+    {
+        if ($this->hotel->removeElement($hotel)) {
+            // set the owning side to null (unless already changed)
+            if ($hotel->getPays() === $this) {
+                $hotel->setPays(null);
+            }
         }
 
         return $this;

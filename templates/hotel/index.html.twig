@@ -29,6 +29,7 @@
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Photo</th>
+                 <th>Pays</th>
                 
                 
                 <th >actions</th>
@@ -42,22 +43,27 @@
                 <td>{{ hotel.id }}</td>
                 <td>{{ hotel.nom }}</td>
                 <td>{{ hotel.description }}</td>
+              
+                
                                 <td>
                {% for a in hotel.photo %}
           <img width="100px" height="100px" src="/{{a}}">
                        {% endfor %}
-</td>
+                          </td>
+                            {% for p in hotel.pays %}
+                           <td>{{p.nom}}</td>
+                           {% endfor %}
                
                 <td>
                     <a class="btn btn-primary" href="{{ path('hotel_edit', {'id': hotel.id}) }}" style="width:100px"><i class="icon-pencil"></i> edit</a>
-                   </td>
-                  <td> 
+                   
+                  
                     {{ include('hotel/_delete_form.html.twig') }}             
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

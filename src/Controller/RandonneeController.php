@@ -23,8 +23,14 @@ class RandonneeController extends AbstractController
      */
     public function index(RandonneeRepository $randonneeRepository): Response
     {
+        $user=$this->getUser();
+        $agencevoyage=$user->getAgencevoyage();
+        if(! is_null($agencevoyage))
+        $randonnees = $randonneeRepository->findByAgencevoyage($agencevoyage) ;
+        else 
+        $randonnees = $randonneeRepository->findAll() ;
         return $this->render('randonnee/index.html.twig', [
-            'randonnees' => $randonneeRepository->findAll(),
+            'randonnees' =>$randonnees,
         ]);
     }
 
@@ -34,7 +40,7 @@ class RandonneeController extends AbstractController
     public function new(Request $request): Response
     {
         $randonnee = new Randonnee();
-        $form = $this->createForm(RandonneeType::class, $randonnee);
+        $form = $this->createForm(RandonneeAgentType::class, $randonnee);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

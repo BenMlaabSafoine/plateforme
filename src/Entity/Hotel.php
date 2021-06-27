@@ -51,6 +51,11 @@ class Hotel
      */
     private $photo = [];
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="hotels")
+     */
+    private $pays;
+
   
 
 
@@ -184,6 +189,18 @@ class Hotel
     public function setPhoto(array $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): self
+    {
+        $this->pays = $pays;
 
         return $this;
     }

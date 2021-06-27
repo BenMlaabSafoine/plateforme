@@ -19,7 +19,11 @@ class VoyageOrganiserAgentType extends AbstractType
     {
         $builder
            
+            ->add('titre')
             ->add('description')
+            ->add('comprend')
+            ->add('necomprendpas')
+            ->add('prixapartir')
             
             ->add('pays', EntityType::class, [
                 // looks for choices from this entity

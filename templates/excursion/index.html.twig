@@ -23,25 +23,30 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Titre</th>
                 <th>Description</th>
-                <th colspan="2">actions</th>
-                <th></th>
-                <th></th>
+                <th>Comprend</th>
+                <th>Ne comprend pas</th>
+                <th>Prix à partir</th>
+                <th>actions</th>
+                
             </tr>
         </thead>
         <tbody>
         {% for excursion in excursions %}
             <tr>
                 <td>{{ excursion.id }}</td>
+                  <td>{{excursion.titre}}</td>
                 <td>{{excursion.description}}</td>
+                  <td>{{excursion.comprend}}</td>
+                    <td>{{excursion.necomprendpas}}</td>
+                      <td>{{excursion.prixapartir}}</td>
                 <td>
-                    <a class="btn btn-primary" href="{{ path('excursion_edit', {'id': excursion.id}) }}"style="width:100px"><i class="icon-pencil"></i>edit</a>
-                    </td>
-                    <td>
+                    <a class="btn btn-primary" href="{{ path('excursion_edit', {'id': excursion.id}) }}"style="width:100px"><i class="icon-pencil"></i> Modifier</a>
+                    
                     {{ include('excursion/_delete_form.html.twig') }}
                 </td>
-                <td></td>
-                <td></td>
+                
             </tr>
         {% else %}
             <tr>

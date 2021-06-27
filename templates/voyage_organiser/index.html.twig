@@ -24,30 +24,32 @@
         <thead>
             <tr>
                 <th>Id</th>
-                
+                <th>Titre</th>
                 <th>Description</th>
-                <th colspan="2">actions</th>
-                <th></th>
-                <th></th>
+                <th>Comprend</th>
+                <th>Ne comprend pas</th>
+                <th>Prix à partir</th>
+                <th colspan>actions</th>
+               
             </tr>
         </thead>
         <tbody>
         {% for voyage_organiser in voyage_organisers %}
             <tr>
                 <td>{{ voyage_organiser.id }}</td>
-               
+                <td>{{ voyage_organiser.titre }}</td>
                 <td>{{ voyage_organiser.description }}</td>
-                
+                <td>{{ voyage_organiser.comprend }}</td>
+                <td>{{ voyage_organiser.necomprendpas }}</td>
+                <td>{{ voyage_organiser.prixapartir }}</td>
 
                 <td>
                     
-                    <a class="btn btn-primary"  href="{{ path('voyage_organiser_edit', {'id': voyage_organiser.id}) }}"style="width:100px"><i class="icon-pencil"></i>edit</a>
-                    </td>
-                    <td>
+                    <a class="btn btn-primary"  href="{{ path('voyage_organiser_edit', {'id': voyage_organiser.id}) }}"style="width:100px"><i class="icon-pencil"></i>Modifier</a>
+                   
                     {{ include('voyage_organiser/_delete_form.html.twig') }}
                 </td>
-                <td></td>
-                <td></td>
+               
             </tr>
             
      

@@ -18,8 +18,11 @@ class CroissiereType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        
+            ->add('titre')
             ->add('description')
+            ->add('comprend')
+            ->add('necomprendpas')
+            ->add('prixapartir')
 
             ->add('agencevoyage', EntityType::class, [
                 // looks for choices from this entity

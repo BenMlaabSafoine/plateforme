@@ -25,8 +25,14 @@ class CroissiereController extends AbstractController
      */
     public function index(CroissiereRepository $croissiereRepository): Response
     {
+        $user=$this->getUser();
+        $agencevoyage=$user->getAgencevoyage();
+        if(! is_null($agencevoyage))
+        $croissieres = $croissiereRepository->findByAgencevoyage($agencevoyage) ;
+        else 
+        $croissieres = $croissiereRepository->findAll() ;
         return $this->render('croissiere/index.html.twig', [
-            'croissieres' => $croissiereRepository->findAll(),
+            'croissieres' => $croissieres ,
         ]);
     }
 

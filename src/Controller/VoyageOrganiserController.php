@@ -24,8 +24,14 @@ class VoyageOrganiserController extends AbstractController
      */
     public function index(VoyageOrganiserRepository $voyageOrganiserRepository): Response
     {
+        $user=$this->getUser();
+        $agencevoyage=$user->getAgencevoyage();
+        if(! is_null($agencevoyage))
+        $voyageorganisers = $voyageOrganiserRepository->findByAgencevoyage($agencevoyage) ;
+        else 
+        $voyageorganisers = $voyageOrganiserRepository->findAll() ;
         return $this->render('voyage_organiser/index.html.twig', [
-            'voyage_organisers' => $voyageOrganiserRepository->findAll(),
+            'voyage_organisers' => $voyageorganisers,
         ]);
     }
 
@@ -46,8 +52,6 @@ class VoyageOrganiserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $user=$this->getUser();
             $agence=$user->getAgencevoyage();
-            var_dump('user'.$user->getId());
-            var_dump('agence'.$agence->getId());
             $voyageOrganiser->setAgencevoyage($agence);
             $entityManager->persist($voyageOrganiser);
             $entityManager->flush();
