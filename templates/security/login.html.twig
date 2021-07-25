@@ -274,7 +274,7 @@ input[type=text]:placeholder {
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="{{ asset('global_assets/images/placeholders/userr.png') }}" style="width:150px;height:150px;" id="icon" alt="User Icon" />
+      <img src="{{ asset('global_assets/images/placeholders/logoo.png') }}" style="width:100px;height:100px;" id="icon" alt="User Icon" />
     </div>
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -282,7 +282,7 @@ input[type=text]:placeholder {
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Connecter par {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
     <!-- Login Form -->
@@ -299,7 +299,7 @@ input[type=text]:placeholder {
    <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
-  <button type="submit" class="btn btn-primary fadeIn fourth">Submit</button>
+  <button type="submit" class="btn btn-primary fadeIn fourth">Connection</button>
 </form>
   
    

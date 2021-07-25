@@ -13,6 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\GrilleTarifaire;
 use App\Form\GrilleTarifaireType;
+use App\Form\ReservationType;
+use App\Entity\Client;
+use App\Entity\Reservation;
+use App\Repository\ClientRepository;
+use App\Repository\GrilleTarifaireRepository;
+use App\Repository\OffreRepository;
 
 
 /**
@@ -66,13 +72,44 @@ class CroissiereController extends AbstractController
     /**
      * @Route("/{id}", name="croissiere_show", methods={"GET"})
      */
-    public function show(Croissiere $croissiere): Response
-    {
+    public function show(Croissiere $croissiere,ClientRepository $clientRepository,Request $request): Response
+    {$clients= $clientRepository->findAll();
         return $this->render('croissiere/show.html.twig', [
             'croissiere' => $croissiere,
+            'clients'=>$clients,
         ]);
     }
+/**
+     * @Route("/reservation/offre", name="croissiere_reservation", methods={"POST"})
+     */
+    public function reservation(Request $request,ClientRepository $clientRepository,GrilleTarifaireRepository $grilletarifaireRepository,OffreRepository $offreRepository): Response
+    {   
+          
+         $em = $this->getDoctrine()->getManager();
+        if ($request->getMethod() == 'POST') {
+            $reservation = new Reservation();
 
+        $idclient = $request->request->get('client');
+        $idgrilletarifaire = $request->request->get('grilletarifaire');
+        $idoffre = $request->request->get('offre');
+
+        $client =  $clientRepository->find($idclient);
+        $grilletarifaire =  $grilletarifaireRepository->find($idgrilletarifaire);
+        $offre =  $offreRepository->find($idoffre);
+            $reservation->setClient($client);
+            $reservation->setGrilleTarifaire($grilletarifaire);
+            $reservation->setOffre($offre);
+            $reservation->setAgenceVoyage($offre->getAgenceVoyage());
+            $reservation->setStatut('nontraitee');
+            $reservation->setDate(new \DateTime('now'));
+            $em->persist($reservation);
+            $em->flush();
+          }
+          return $this->redirectToRoute('reservation_index' );
+    
+        
+        
+    }
     /**
      * @Route("/{id}/edit", name="croissiere_edit", methods={"GET","POST"})
      */

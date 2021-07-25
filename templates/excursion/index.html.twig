@@ -6,7 +6,7 @@
 	<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
 
-	<script src="{{ asset('assets/js/app.js') }}"></script>
+	
 	<script src="{{ asset('global_assets/js/demo_pages/datatables_basic.js') }}"></script>
 {% endblock %}
 {% block body %}
@@ -25,6 +25,7 @@
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Description</th>
+                <th>Pays</th>
                 <th>Comprend</th>
                 <th>Ne comprend pas</th>
                 <th>Prix à partir</th>
@@ -38,6 +39,12 @@
                 <td>{{ excursion.id }}</td>
                   <td>{{excursion.titre}}</td>
                 <td>{{excursion.description}}</td>
+                  {% for o in excursion.pays %}
+            
+                <td>{{ o.nom}}</td>
+               
+            
+            {% endfor %}
                   <td>{{excursion.comprend}}</td>
                     <td>{{excursion.necomprendpas}}</td>
                       <td>{{excursion.prixapartir}}</td>
@@ -45,6 +52,10 @@
                     <a class="btn btn-primary" href="{{ path('excursion_edit', {'id': excursion.id}) }}"style="width:100px"><i class="icon-pencil"></i> Modifier</a>
                     
                     {{ include('excursion/_delete_form.html.twig') }}
+                </td>
+                  <td>
+                    <a class="btn btn-primary" href="{{ path('excursion_show', {'id': excursion.id}) }}"style="width:100px"> Reserver</a>
+                    
                 </td>
                 
             </tr>

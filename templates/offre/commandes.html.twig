@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offre index{% endblock %}
+{% block js %}
+	<!-- Theme JS files -->
+	<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+
+	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="{{ asset('global_assets/js/demo_pages/datatables_basic.js') }}"></script>
+{% endblock %}
+{% block body %}
+<div class="content">
+   <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
+						<h3 class="card-title" style="color:white">Offre</h3>
+						<div class="header-elements">
+							<a class="btn btn-primary" href="{{ path('offre_new') }}" style="width:100px" align="right" ><i class="icon-add"></i> Ajouter</a>
+	                	</div>
+					</div>
+	
+    
+
+    <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+        <thead>
+            <tr>
+            <th>Id</th>
+            <th>Agence de Voyage</th>
+            <th>Offre</th>
+            <th>Pays</th>
+            <th>Client</th>
+            <th>Statue</th>    
+            <th>actions</th>
+           
+           
+            </tr>
+        </thead>
+        <tbody>
+        
+        
+            <tr>
+             <td>1</td>
+             <td>Traveltodo</td>
+               <td>Voyage organiser</td>
+               <td>Espagne</td>
+               <td>Chebbi Mohamed</td>
+                <td>  <a  class="btn btn-success" href=""style="width:100px">validée</a></td>
+               
+            
+         
+               <td>
+                    <a  class="btn btn-primary" href=""style="width:100px"><i class="icon-pencil"></i> Modifier</a>
+               
+                </td>
+               </tr>
+                <tr>
+             <td>2</td>
+             <td>Tunisie Booking</td>
+               <td>Croisière</td>
+               <td>Tunis</td>
+               <td>Sahli Nawfel</td>
+                <td>  <a  class="btn btn-success" href=""style="width:100px;background-color:Coral">En cour</a></td>
+               
+            
+         
+               <td>
+                    <a  class="btn btn-primary" href=""style="width:100px"><i class="icon-pencil"></i> Modifier</a>
+               
+                </td>
+               </tr>
+                <tr>
+             <td>3</td>
+             <td>Taha Voyage</td>
+               <td>voyage Organiser</td>
+               <td>Turquie</td>
+               <td>Ben yahia Asma</td>
+                <td>  <a  class="btn btn-success" href=""style="width:100px;background-color:red">Refusé</a></td>
+               
+            
+         
+               <td>
+                    <a  class="btn btn-primary" href=""style="width:100px"><i class="icon-pencil"></i> Modifier</a>
+               
+                </td>
+               </tr>
+          
+        </tbody>
+    </table>
+   
+   
+   
+    </div>
+{% endblock %}

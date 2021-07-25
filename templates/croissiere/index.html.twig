@@ -26,6 +26,7 @@
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Description</th>
+                <th>Pays</th>
                 <th>Comprend</th>
                 <th>Ne comprend pas</th>
                 <th>Prix à partir</th>
@@ -39,6 +40,12 @@
                 <td>{{ croissiere.id }}</td>
                <td>{{ croissiere.titre }}</td>
                 <td>{{ croissiere.description }}</td>
+                  {% for o in croissiere.pays %}
+            
+                  <td>{{ o.nom}}</td>
+               
+            
+            {% endfor %}
                 <td>{{ croissiere.comprend }}</td>
                 <td>{{ croissiere.necomprendpas }}</td>
                 <td>{{ croissiere.prixapartir }}</td>
@@ -49,8 +56,10 @@
                     
                      {{ include('croissiere/_delete_form.html.twig') }}
                 </td>
-                <td></td>
-                <td></td>
+                <td>
+                 <a class="btn btn-primary" style="width:100px" href="{{ path('croissiere_show', {'id': croissiere.id}) }}">Reserver</a>
+                </td>
+               
             </tr>
              {% else %}
             <tr>

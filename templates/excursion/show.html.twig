@@ -2,24 +2,101 @@
 
 {% block title %}Excursion{% endblock %}
 
-{% block body %}
-    <h1>Excursion</h1>
+{% block js %}
+	<!-- Theme JS files -->
+	
+<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
 
-    <table class="table">
+	<script src="{{ asset('global_assets/js/demo_pages/datatables_basic.js') }}"></script>
+{% endblock %}
+{% block body %}
+    <div class="content">
+   <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
+						<h3 class="card-title" style="color:white">Reserver Excursion</h3>
+						<div class="header-elements">
+							 <a class="btn btn-primary" style="width:100px" href="{{ path('excursion_index') }}"><i class="icon-file-text2"></i> Liste </a>
+	                	</div>
+					</div>
+
+    <table class="table datatable-basic dataTable no-footer" >
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ excursion.id }}</td>
             </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ excursion.description }}</td>
-             
+                </tr>
+                  <th>Titre</th>
+                  <td>{{ excursion.titre }}</td>
+                  </tr>
+                  <tr>
+                <th>Pays</th>
+                 {% for o in excursion.pays %}
+                 
+                   <td>{{ o.nom}}</td>
+                  {% endfor %}
+                  </tr>
+                  <tr>
+                <th>Comprend</th>
+                  <td>{{ excursion.comprend }}</td>
+                  </tr>
+                  <tr>
+                <th>Ne comprend pas</th>
+                  <td>{{ excursion.necomprendpas }}</td>
+                  </tr>
+                  <tr>
+                <th>Prix à partir</th>
+                  <td>{{ excursion.prixapartir }}</td>
+            </tr>
         </tbody>
     </table>
+    <form method="POST" action="{{path('excursion_reservation')}}">
 
-    <a href="{{ path('excursion_index') }}">back to list</a>
-
-    <a href="{{ path('excursion_edit', {'id': excursion.id}) }}">edit</a>
-
-    {{ include('excursion/_delete_form.html.twig') }}
+     <table class="table datatable-select-checkbox"  >
+        <thead>
+            <tr>
+            <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label=""></th>
+                <th></th>
+                <th>Id</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Description</th>
+                <th>Prix</td>
+                <th>Hotel</td>
+                <th colspan="2">Photos Hotel</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for grilletarifaire in excursion.grilletarifaires %}
+            <tr>
+                <td><input type="radio" name="grilletarifaire" value="{{ grilletarifaire.id }}"></td>
+                <td>{{ grilletarifaire.id }}</td>
+                <td>{{ grilletarifaire.datedebut|date('Y/m/d') }}</td>
+                <td>{{ grilletarifaire.datefin|date('Y/m/d') }}</td>
+                <td>{{ grilletarifaire.description }}</td>
+                <td>{{grilletarifaire.prix}}</td>
+                {% for g in grilletarifaire.hotelgrille %}
+                <td>{{g.nom}}</td>
+                 {% endfor %}
+                 {% for a in grilletarifaire.hotelgrille %}
+                   {% for b in a.photo %}
+          <td><img width="50px" height="50px" src="/{{b}}"></td>
+                    {% endfor %}
+                {% endfor %}
+                 {% endfor %} 
+                 </tbody>
+                 </table>
+                 <h2>Client :</h2>
+                 <select name="client" class="">
+                        {% for client in clients %}
+                          <option value="{{client.id}}">{{client.nom}} {{client.prenom}}</option>
+                        {% endfor %}
+                 </select>
+                <input type="hidden" name="offre" value="{{excursion.id}}" >
+                <br>
+     <button type="submit" class="btn bg-success" style="width:100px;background-color:ForestGreen"><i class="icon-checkmark ml-2"></i> Valider</button>
+                 </form>
 {% endblock %}

@@ -21,7 +21,9 @@
 	<script src="{{ asset('global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
+	{% block jsbefor %}
 
+	 {% endblock %}
 	<!-- Theme JS files -->
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/visualization/d3/d3.min.js') }}"></script>
@@ -32,10 +34,9 @@
 	<script src="{{ asset('global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 
 	{% block js %}
-	
+
 	 {% endblock %}
-	 {% block hotel %}
-	 {% endblock %}
+	 
 	<!-- /theme JS files -->
 
 </head>
@@ -48,9 +49,6 @@
 		<!-- Header with logos -->
 		<div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
-				<a href="index.html" class="d-inline-block">
-					<img  style="width:200px;height:90px;" src="{{ asset('global_assets/images/placeholders/softsquir.png') }}" alt="">
-				</a>
 			</div>
 		</div>
 		<!-- /header with logos -->
@@ -111,7 +109,7 @@
 					<div class="card-body">
 						<div class="media">
 							<div class="mr-3">
-								<a href="#"><img src="{{ asset('global_assets/images/placeholders/placeholder.jpg') }}" width="38" height="38" class="rounded-circle" alt=""></a>
+								<a href="#"><img src="{{ asset('global_assets/images/placeholders/logotravel.jpg') }}" width="38" height="38" class="rounded-circle" alt=""></a>
 							</div>
 
 							<div class="media-body">
@@ -137,56 +135,55 @@
 					<ul class="nav nav-sidebar" data-nav-type="accordion">
 
 						<!-- Main -->
-						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu" title="Main"></i></li>
+						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu" title="Main"></i></li>
 {% if is_granted('ROLE_ADMIN') %}
 						<li class="nav-item nav-item-submenu">
-							<a  class="nav-link"><i class="icon-color-sampler"></i> <span>Agence</span></a>
+							<a  class="nav-link"><i class="icon-color-sampler"></i> <span>Agences</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Themes">
-								<li class="nav-item"><a href="{{path('agence_voyage_index')}}" class="nav-link active">Lister</a></li>
+								<li class="nav-item"><a href="{{path('agence_voyage_index')}}" class="nav-link active">Liste des agences</a></li>
 							</ul>
 						</li>
-						{% endif %}
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-stack"></i> <span>Hotel</span></a>
+							<a href="#" class="nav-link"><i class="icon-home"></i> <span>Hotels</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item"><a href="{{path('hotel_index')}}" class="nav-link">Lister</a></li>
+								<li class="nav-item"><a href="{{path('hotel_index')}}" class="nav-link">Liste des Hotels</a></li>
 									</ul>
 								</li>
 
 								<li class="nav-item nav-item-submenu">
-								<a href="#" class="nav-link"><i class="icon-stack"></i> <span>Pays</span></a>
+								<a href="#" class="nav-link"><i class="icon-flag3"></i> <span>Pays</span></a>
 									
 									<ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="{{path('pays_index')}}" class="nav-link">Lister</a></li>
+										<li class="nav-item"><a href="{{path('pays_index')}}" class="nav-link">Liste des pays </a></li>
 										
 									</ul>
 								</li>
 								<li class="nav-item nav-item-submenu">
-									<a href="#" class="nav-link"><i class="icon-file-stats"></i> <span>Sites</span></a>
+									<a href="#" class="nav-link"><i class="icon-city"></i> <span>Sites</span></a>
 
 									<ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="{{path('sites_index')}}" class="nav-link">Lister</a></li>
+										<li class="nav-item"><a href="{{path('sites_index')}}" class="nav-link">Liste des sites</a></li>
 										
 									</ul>
 								</li>
+						{% endif %}
+						
 								<li class="nav-item nav-item-submenu">
-									<a href="#" class="nav-link"><i class="icon-file-stats"></i> <span>Offre</span></a>
-                                    <ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="{{path('offre_index')}}" class="nav-link">Lister</a></li>
-									</ul>	
+									<a href="#" class="nav-link"><i class="icon-newspaper"></i> <span>Offres</span></a>
+                                    
 									<ul class="nav nav-group-sub">
 										<li class="nav-item"><a href="{{path('omra_index')}}" class="nav-link">Omra</a></li>
 									</ul>	
 									<ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="{{path('croissiere_index')}}" class="nav-link">Croissiere</a></li>	
+										<li class="nav-item"><a href="{{path('croissiere_index')}}" class="nav-link">Croisière</a></li>	
 									</ul>
 										<ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="{{path('voyage_organiser_index')}}" class="nav-link">Voyage Organiser</a></li>	
+										<li class="nav-item"><a href="{{path('voyage_organiser_index')}}" class="nav-link">Voyage Organisé</a></li>	
 									</ul>
 									<ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="{{path('randonnee_index')}}" class="nav-link">Randonnee</a></li>
+										<li class="nav-item"><a href="{{path('randonnee_index')}}" class="nav-link">Randonnée</a></li>
 									</ul>	
 									<ul class="nav nav-group-sub">
 										<li class="nav-item"><a href="{{path('excursion_index')}}" class="nav-link">Excursion</a></li>
@@ -195,6 +192,19 @@
 										<li class="nav-item"><a href="{{path('grille_tarifaire_index')}}" class="nav-link">Grille tarifaire</a></li>
 									</ul>	
 								</li>
+								
+								<li class="nav-item nav-item-submenu">
+									<a href="#" class="nav-link"><i class="icon-newspaper"></i> <span>Réservations</span></a>
+                                    
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('reservation_index')}}" class="nav-link">Liste des réservations</a></li>
+									</ul>	
+								<li class="nav-item nav-item-submenu">
+									<a href="#" class="nav-link"><i class="icon-newspaper"></i> <span>Clients</span></a>
+                                    
+									<ul class="nav nav-group-sub">
+										<li class="nav-item"><a href="{{path('client_index')}}" class="nav-link">Liste des clients</a></li>
+									</ul>		
 							
 							</ul>
 						</li>

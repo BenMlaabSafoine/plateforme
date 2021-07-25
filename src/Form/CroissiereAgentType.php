@@ -36,17 +36,7 @@ class CroissiereAgentType extends AbstractType
                 'multiple' => true,
                 // 'expanded' => true,
             ])
-            ->add('hotels', EntityType::class, [
-                // looks for choices from this entity
-                'class' => Hotel::class,
-            
-                // uses the User.username property as the visible option string
-                'choice_label' => 'nom',
-            
-                // used to render a select box, check boxes or radios
-                 'multiple' => true,
-                // 'expanded' => true,
-            ])
+           
             
         ;
     }

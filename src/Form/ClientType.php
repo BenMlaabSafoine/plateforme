@@ -18,17 +18,7 @@ class ClientType extends AbstractType
             ->add('numtel')
             ->add('email')
             ->add('adresse')
-            ->add('reservation', EntityType::class, [
-                // looks for choices from this entity
-                'class' => Reservation::class,
-            
-                // uses the User.username property as the visible option string
-                'choice_label' => 'id',
-            
-                // used to render a select box, check boxes or radios
-                'multiple' => true,
-                // 'expanded' => true,
-            ])
+           
         ;
     }
 

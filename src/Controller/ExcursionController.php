@@ -12,6 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\GrilleTarifaireType;
 use App\Entity\GrilleTarifaire;
+use App\Form\ReservationType;
+use App\Entity\AgenceVoyage;
+use App\Entity\Client;
+use App\Entity\Reservation;
+use App\Repository\ClientRepository;
+use App\Repository\GrilleTarifaireRepository;
+use App\Repository\OffreRepository;
 
 /**
  * @Route("/excursion")
@@ -63,13 +70,44 @@ class ExcursionController extends AbstractController
     /**
      * @Route("/{id}", name="excursion_show", methods={"GET"})
      */
-    public function show(Excursion $excursion): Response
-    {
+    public function show(Excursion $excursion,ClientRepository $clientRepository,Request $request): Response
+    {$clients= $clientRepository->findAll();
         return $this->render('excursion/show.html.twig', [
             'excursion' => $excursion,
+            'clients'=>$clients,
         ]);
     }
+/**
+     * @Route("/reservation/offre", name="excursion_reservation", methods={"POST"})
+     */
+    public function reservation(Request $request,ClientRepository $clientRepository,GrilleTarifaireRepository $grilletarifaireRepository,OffreRepository $offreRepository): Response
+    {   
+          
+         $em = $this->getDoctrine()->getManager();
+        if ($request->getMethod() == 'POST') {
+            $reservation = new Reservation();
 
+        $idclient = $request->request->get('client');
+        $idgrilletarifaire = $request->request->get('grilletarifaire');
+        $idoffre = $request->request->get('offre');
+
+        $client =  $clientRepository->find($idclient);
+        $grilletarifaire =  $grilletarifaireRepository->find($idgrilletarifaire);
+        $offre =  $offreRepository->find($idoffre);
+            $reservation->setClient($client);
+            $reservation->setGrilleTarifaire($grilletarifaire);
+            $reservation->setOffre($offre);
+            $reservation->setAgenceVoyage($offre->getAgenceVoyage());
+            $reservation->setStatut('nontraitee');
+            $reservation->setDate(new \DateTime('now'));
+            $em->persist($reservation);
+            $em->flush();
+          }
+          return $this->redirectToRoute('reservation_index' );
+    
+        
+        
+    }
     /**
      * @Route("/{id}/edit", name="excursion_edit", methods={"GET","POST"})
      */

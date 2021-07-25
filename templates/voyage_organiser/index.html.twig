@@ -6,14 +6,13 @@
 	<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
 
-	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<script src="{{ asset('global_assets/js/demo_pages/datatables_basic.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <div class="content">
    <div class="card-header header-elements-inline" style="background-color:RoyalBlue">
-						<h3 class="card-title" style="color:white">Voyage Organiser</h3>
+						<h3 class="card-title" style="color:white">Voyage Organisé</h3>
 						<div class="header-elements">
 							<a class="btn btn-primary" href="{{ path('voyage_organiser_new') }}" style="width:100px" align="right" ><i class="icon-add"></i> Ajouter</a>
 	                	</div>
@@ -26,10 +25,12 @@
                 <th>Id</th>
                 <th>Titre</th>
                 <th>Description</th>
+                <th>Pays</th>
                 <th>Comprend</th>
                 <th>Ne comprend pas</th>
                 <th>Prix à partir</th>
                 <th colspan>actions</th>
+                <th></th>
                
             </tr>
         </thead>
@@ -39,17 +40,24 @@
                 <td>{{ voyage_organiser.id }}</td>
                 <td>{{ voyage_organiser.titre }}</td>
                 <td>{{ voyage_organiser.description }}</td>
+                  {% for o in voyage_organiser.pays %}
+                   <td>{{ o.nom}}</td>
+                  {% endfor %}
                 <td>{{ voyage_organiser.comprend }}</td>
                 <td>{{ voyage_organiser.necomprendpas }}</td>
                 <td>{{ voyage_organiser.prixapartir }}</td>
+                
 
                 <td>
                     
                     <a class="btn btn-primary"  href="{{ path('voyage_organiser_edit', {'id': voyage_organiser.id}) }}"style="width:100px"><i class="icon-pencil"></i>Modifier</a>
                    
                     {{ include('voyage_organiser/_delete_form.html.twig') }}
+                     
                 </td>
-               
+                <td>
+                    <a class="btn btn-primary" href="{{ path('voyage_organiser_show', {'id': voyage_organiser.id}) }}"style="width:100px"></i> Reserver</a>
+               </td>
             </tr>
             
      

@@ -6,7 +6,7 @@
 	<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
 
-	<script src="{{ asset('assets/js/app.js') }}"></script>
+
 	<script src="{{ asset('global_assets/js/demo_pages/datatables_basic.js') }}"></script>
 {% endblock %}
 
@@ -47,7 +47,9 @@
                    
                     {{ include('omra/_delete_form.html.twig') }}
                 </td>
-               
+                  <td>
+                    <a class="btn btn-primary" href="{{ path('omra_show', {'id': omra.id}) }}"style="width:100px">Reserver</a>
+               </td>
             </tr>
             
         {% else %}

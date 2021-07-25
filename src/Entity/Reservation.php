@@ -19,15 +19,7 @@ class Reservation
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_debut;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_fin;
+   
 
     /**
      * @ORM\ManyToOne(targetEntity=Offre::class, inversedBy="Reservation")
@@ -39,15 +31,27 @@ class Reservation
      */
     private $agenceVoyage;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Client::class, mappedBy="reservations")
-     */
-    private $clients;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=GrilleTarifaire::class, inversedBy="reservations")
      */
     private $grilleTarifaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="reservations")
+     */
+    private $client;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $statut;
 
     public function __construct()
     {
@@ -59,29 +63,7 @@ class Reservation
         return $this->id;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
-    {
-        return $this->date_debut;
-    }
-
-    public function setDateDebut(\DateTimeInterface $date_debut): self
-    {
-        $this->date_debut = $date_debut;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->date_fin;
-    }
-
-    public function setDateFin(\DateTimeInterface $date_fin): self
-    {
-        $this->date_fin = $date_fin;
-
-        return $this;
-    }
+    
 
     public function getOffre(): ?Offre
     {
@@ -145,6 +127,42 @@ class Reservation
     public function setGrilleTarifaire(?GrilleTarifaire $grilleTarifaire): self
     {
         $this->grilleTarifaire = $grilleTarifaire;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

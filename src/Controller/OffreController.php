@@ -28,6 +28,15 @@ class OffreController extends AbstractController
         ]);
     }
 
+    
+         /**
+     * @Route("/commandes", name="offre_commandes")
+     */
+    public function commandes (): Response
+    {
+        return $this->render('offre/commandes.html.twig');
+    }
+
     /**
      * @Route("/new", name="offre_new", methods={"GET","POST"})
      */
@@ -86,6 +95,7 @@ class OffreController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/{id}", name="offre_delete", methods={"DELETE"})
      */
@@ -119,4 +129,5 @@ class OffreController extends AbstractController
 
         return $this->redirectToRoute('offre_index');
     }
+
 }
